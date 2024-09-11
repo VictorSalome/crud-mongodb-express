@@ -8,10 +8,11 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+const HOST = "0.0.0.0";  // Alteração para escutar em 0.0.0.0
 
 const __dirname = path.resolve();
 
-app.use(express.json()); // to accept json data
+app.use(express.json()); // para aceitar dados JSON
 
 app.use("/api/products", productRoutes);
 
@@ -22,8 +23,8 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-// Usar a variável PORT da env
-app.listen(PORT, () => {
+// Alterando para HOST e PORT
+app.listen(PORT, HOST, () => {
   connectDB();
-  console.log(`Server started at http://localhost:${PORT}`);
+  console.log(`Servidor rodando em http://localhost:${PORT}`);
 });

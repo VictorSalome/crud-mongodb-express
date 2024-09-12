@@ -1,18 +1,19 @@
 import express from "express";
 import dotenv from "dotenv";
 import path from "path";
+
 import { connectDB } from "../backend/config/db.js";
+
 import productRoutes from "../backend/router/product.route.js";
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const HOST = "0.0.0.0";  // Alteração para escutar em 0.0.0.0
 
 const __dirname = path.resolve();
 
-app.use(express.json()); // para aceitar dados JSON
+app.use(express.json()); // allows us to accept JSON data in the req.body
 
 app.use("/api/products", productRoutes);
 
@@ -23,8 +24,7 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-// Alterando para HOST e PORT
-app.listen(PORT, HOST, () => {
+app.listen(PORT, () => {
   connectDB();
-  console.log(`Servidor rodando em http://localhost:${PORT}`);
+  console.log("Server started at http://localhost:" + PORT);
 });
